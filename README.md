@@ -9,6 +9,27 @@ This project was inspired by the official [Acer System Information Tool](https:/
 
 ![System Information Utility Preview](SystemInformation/Resources/screenshot.png)
 
+## Download
+
+You can download the latest compiled version of the System Information Utility here:
+
+👉 **[Download SystemInformation.exe](https://github.com/1d3nt/SystemInformation/releases/latest)**
+
+No installation required — just run the executable.
+
+## Overview
+
+This utility serves as a modern alternative to the legacy Acer System Information Tool.  
+If you're looking for a replacement for:
+
+* Acer System Information
+* Acer SNID Tool
+* Acer Serial Number Checker
+* Acer Product Information Utility
+* Windows System Information Tool
+
+—this project provides a faster, cleaner, fully copy‑enabled solution built on .NET 10.0.
+
 ## Features
 
 * **Complete Hardware Identity:** Displays Brand, Product Name, Serial Number, and SNID in dedicated fields.
@@ -86,4 +107,16 @@ Contributions, bug reports, and feature requests are welcome! To maintain clean 
 4. **Push and Pull Request:** Push your branch to your fork and submit a Pull Request against the `main` branch:
    ```bash
    git push origin feature/your-feature-name      
+   ```
+## Requirements & Building
+
+### Prerequisites
+* Windows 10 / Windows 11 (x64 / ARM64)
+* [.NET 10.0 SDK](https://dotnet.microsoft.com/) (or Visual Studio 2026+ with desktop development workload)
+
+### Build Instructions
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/1d3nt/SystemInformation.git](https://github.com/1d3nt/SystemInformation.git)
+   cd SystemInformation
    ```
