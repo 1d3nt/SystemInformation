@@ -22,18 +22,20 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        components = New Container()
         Dim Brandlabel As Label
         Dim ProductNameLabel As Label
         Dim Label1 As Label
         Dim SnidLabel As Label
         Dim LineBreakerLabel As Label
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
+        Dim resources As ComponentResourceManager = New ComponentResourceManager(GetType(MainForm))
         BrandTextBox = New TextBox()
         ProductNameTextBox = New TextBox()
         SerialNumberTextBox = New TextBox()
-        TextBox1 = New TextBox()
+        SnidTextBox = New TextBox()
         CopyAllButton = New Button()
         ExitButton = New Button()
+        CopyNotificationToolTip = New ToolTip(components)
         Brandlabel = New Label()
         ProductNameLabel = New Label()
         Label1 = New Label()
@@ -95,35 +97,39 @@ Partial Class MainForm
         ' 
         ' BrandTextBox
         ' 
+        BrandTextBox.Font = New Font("Segoe UI Semibold", 10.2F, FontStyle.Bold)
         BrandTextBox.Location = New Point(237, 67)
         BrandTextBox.Name = "BrandTextBox"
         BrandTextBox.ReadOnly = True
-        BrandTextBox.Size = New Size(482, 27)
+        BrandTextBox.Size = New Size(482, 30)
         BrandTextBox.TabIndex = 1
         ' 
         ' ProductNameTextBox
         ' 
+        ProductNameTextBox.Font = New Font("Segoe UI Semibold", 10.2F, FontStyle.Bold)
         ProductNameTextBox.Location = New Point(237, 105)
         ProductNameTextBox.Name = "ProductNameTextBox"
         ProductNameTextBox.ReadOnly = True
-        ProductNameTextBox.Size = New Size(482, 27)
+        ProductNameTextBox.Size = New Size(482, 30)
         ProductNameTextBox.TabIndex = 3
         ' 
         ' SerialNumberTextBox
         ' 
+        SerialNumberTextBox.Font = New Font("Segoe UI Semibold", 10.2F, FontStyle.Bold)
         SerialNumberTextBox.Location = New Point(237, 143)
         SerialNumberTextBox.Name = "SerialNumberTextBox"
         SerialNumberTextBox.ReadOnly = True
-        SerialNumberTextBox.Size = New Size(482, 27)
+        SerialNumberTextBox.Size = New Size(482, 30)
         SerialNumberTextBox.TabIndex = 5
         ' 
-        ' TextBox1
+        ' SnidTextBox
         ' 
-        TextBox1.Location = New Point(237, 181)
-        TextBox1.Name = "TextBox1"
-        TextBox1.ReadOnly = True
-        TextBox1.Size = New Size(482, 27)
-        TextBox1.TabIndex = 7
+        SnidTextBox.Font = New Font("Segoe UI Semibold", 10.2F, FontStyle.Bold)
+        SnidTextBox.Location = New Point(237, 181)
+        SnidTextBox.Name = "SnidTextBox"
+        SnidTextBox.ReadOnly = True
+        SnidTextBox.Size = New Size(482, 30)
+        SnidTextBox.TabIndex = 7
         ' 
         ' CopyAllButton
         ' 
@@ -149,6 +155,10 @@ Partial Class MainForm
         ExitButton.Text = "Exit"
         ExitButton.UseVisualStyleBackColor = True
         ' 
+        ' CopyNotificationToolTip
+        ' 
+        CopyNotificationToolTip.IsBalloon = True
+        ' 
         ' MainForm
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
@@ -157,7 +167,7 @@ Partial Class MainForm
         Controls.Add(ExitButton)
         Controls.Add(CopyAllButton)
         Controls.Add(LineBreakerLabel)
-        Controls.Add(TextBox1)
+        Controls.Add(SnidTextBox)
         Controls.Add(SnidLabel)
         Controls.Add(SerialNumberTextBox)
         Controls.Add(Label1)
@@ -179,9 +189,10 @@ Partial Class MainForm
     Private WithEvents BrandTextBox As TextBox
     Private WithEvents ProductNameTextBox As TextBox
     Private WithEvents SerialNumberTextBox As TextBox
-    Private WithEvents TextBox1 As TextBox
+    Private WithEvents SnidTextBox As TextBox
     Private WithEvents LineBreakerLabel As Label
     Private WithEvents CopyAllButton As Button
     Private WithEvents ExitButton As Button
+    Private WithEvents CopyNotificationToolTip As ToolTip
 
 End Class
