@@ -1,4 +1,4 @@
-﻿Namespace CoreServices.WindowsApiInterop.Methods
+﻿Namespace CoreServices.WmiInterop.Methods
 
     ''' <summary>
     ''' Provides methods for querying computer system model information using WMI.

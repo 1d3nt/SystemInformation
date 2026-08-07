@@ -1,4 +1,5 @@
 ﻿Imports SystemInformation.CoreServices.WindowsApiInterop.Methods.Classes
+Imports SystemInformation.CoreServices.WmiInterop.Methods
 Imports SystemInformation.Utilities
 
 Namespace CoreServices.WindowsApiInterop.Methods

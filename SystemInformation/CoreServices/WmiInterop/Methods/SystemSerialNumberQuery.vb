@@ -1,4 +1,4 @@
-﻿Namespace CoreServices.WindowsApiInterop.Methods
+﻿Namespace CoreServices.WmiInterop.Methods
 
     ''' <summary>
     ''' Provides methods for querying BIOS serial number information using WMI.
