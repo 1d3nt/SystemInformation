@@ -43,7 +43,7 @@ Public Class MainForm
     Private Shared Sub TerminateApplication()
         Environment.Exit(0)
     End Sub
-    
+
 #Region " UI Handlers "
 
     ' ReSharper disable once MemberCanBeMadeStatic.Local

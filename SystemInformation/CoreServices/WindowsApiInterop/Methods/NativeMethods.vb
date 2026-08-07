@@ -39,7 +39,7 @@ Namespace CoreServices.WindowsApiInterop.Methods
         ''' </param>
         ''' <param name="dwFlags">
         ''' The flags that restrict the data type of value to be queried. If the data type of the value does not 
-        ''' match this criteria, the function fails.
+        ''' match these criteria, the function fails.
         ''' This parameter is passed with the <c>[In]</c> attribute.
         ''' </param>
         ''' <param name="pdwType">
