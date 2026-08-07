@@ -33,6 +33,7 @@ Partial Class MainForm
         SerialNumberTextBox = New TextBox()
         TextBox1 = New TextBox()
         CopyAllButton = New Button()
+        ExitButton = New Button()
         Brandlabel = New Label()
         ProductNameLabel = New Label()
         Label1 = New Label()
@@ -46,9 +47,10 @@ Partial Class MainForm
         Brandlabel.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Brandlabel.Location = New Point(155, 63)
         Brandlabel.Name = "Brandlabel"
-        Brandlabel.Size = New Size(76, 28)
+        Brandlabel.Size = New Size(70, 28)
         Brandlabel.TabIndex = 0
-        Brandlabel.Text = "Brand :"
+        Brandlabel.Text = "Brand:"
+        Brandlabel.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' ProductNameLabel
         ' 
@@ -56,9 +58,10 @@ Partial Class MainForm
         ProductNameLabel.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         ProductNameLabel.Location = New Point(77, 104)
         ProductNameLabel.Name = "ProductNameLabel"
-        ProductNameLabel.Size = New Size(154, 28)
+        ProductNameLabel.Size = New Size(148, 28)
         ProductNameLabel.TabIndex = 2
-        ProductNameLabel.Text = "Product Name :"
+        ProductNameLabel.Text = "Product Name:"
+        ProductNameLabel.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' Label1
         ' 
@@ -66,9 +69,10 @@ Partial Class MainForm
         Label1.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.Location = New Point(78, 139)
         Label1.Name = "Label1"
-        Label1.Size = New Size(153, 28)
+        Label1.Size = New Size(148, 28)
         Label1.TabIndex = 4
-        Label1.Text = "Serial Number :"
+        Label1.Text = "Serial Number:"
+        Label1.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' SnidLabel
         ' 
@@ -76,9 +80,10 @@ Partial Class MainForm
         SnidLabel.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         SnidLabel.Location = New Point(162, 177)
         SnidLabel.Name = "SnidLabel"
-        SnidLabel.Size = New Size(69, 28)
+        SnidLabel.Size = New Size(63, 28)
         SnidLabel.TabIndex = 6
-        SnidLabel.Text = "SNID :"
+        SnidLabel.Text = "SNID:"
+        SnidLabel.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' LineBreakerLabel
         ' 
@@ -122,21 +127,34 @@ Partial Class MainForm
         ' 
         ' CopyAllButton
         ' 
+        CopyAllButton.FlatAppearance.BorderColor = Color.Silver
+        CopyAllButton.FlatStyle = FlatStyle.Flat
         CopyAllButton.Image = CType(resources.GetObject("CopyAllButton.Image"), Image)
         CopyAllButton.Location = New Point(15, 245)
         CopyAllButton.Name = "CopyAllButton"
+        CopyAllButton.Padding = New Padding(215, 0, 0, 0)
         CopyAllButton.Size = New Size(722, 29)
         CopyAllButton.TabIndex = 9
-        CopyAllButton.Text = "Copy All Info"
+        CopyAllButton.Text = "   Copy All Info"
         CopyAllButton.TextImageRelation = TextImageRelation.ImageBeforeText
         CopyAllButton.UseCompatibleTextRendering = True
         CopyAllButton.UseVisualStyleBackColor = True
+        ' 
+        ' ExitButton
+        ' 
+        ExitButton.Location = New Point(646, 294)
+        ExitButton.Name = "ExitButton"
+        ExitButton.Size = New Size(94, 29)
+        ExitButton.TabIndex = 10
+        ExitButton.Text = "Exit"
+        ExitButton.UseVisualStyleBackColor = True
         ' 
         ' MainForm
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(754, 337)
+        Controls.Add(ExitButton)
         Controls.Add(CopyAllButton)
         Controls.Add(LineBreakerLabel)
         Controls.Add(TextBox1)
@@ -164,5 +182,6 @@ Partial Class MainForm
     Private WithEvents TextBox1 As TextBox
     Private WithEvents LineBreakerLabel As Label
     Private WithEvents CopyAllButton As Button
+    Private WithEvents ExitButton As Button
 
 End Class
