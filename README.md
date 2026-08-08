@@ -48,7 +48,7 @@ If you're looking for a replacement for:
 
 ## Directory Structure
 
-```
+```bash
 SystemInformation
 |-- CoreServices
 |   |-- UI
