@@ -18,15 +18,24 @@ Namespace CoreServices.WindowsApiInterop.Methods
         ''' <summary>
         ''' Asynchronously retrieves hardware system information including brand, model, serial number, and calculated SNID.
         ''' </summary>
+        ''' <param name="cancellationToken">An optional token to monitor for cancellation requests.</param>
         ''' <returns>
         ''' A <see cref="Task(Of SystemInfoModel)"/> representing the asynchronous operation, containing the gathered system details.
         ''' </returns>
-        Friend Shared Async Function GetSystemInfoAsync() As Task(Of SystemInfoModel)
-            Dim brandTask As Task(Of String) = Task.Run(Function() SystemManufacturerQuery.GetBrand())
-            Dim modelTask As Task(Of String) = Task.Run(Function() SystemModelQuery.GetModel())
-            Dim serialNumberTask As Task(Of String) = Task.Run(Function() SystemSerialNumberQuery.GetSerialNumber())
+        ''' <remarks>
+        ''' Note: WMI and Registry APIs are inherently synchronous. Operations are offloaded to background threads 
+        ''' via <c>Task.Run</c> to prevent blocking the UI thread during data retrieval.
+        ''' </remarks>
+        Friend Shared Async Function GetSystemInfoAsync(Optional cancellationToken As CancellationToken = Nothing) As Task(Of SystemInfoModel)
+            cancellationToken.ThrowIfCancellationRequested()
 
-            Await Task.WhenAll(brandTask, modelTask, serialNumberTask)
+            Dim brandTask As Task(Of String) = Task.Run(Function() SystemManufacturerQuery.GetBrand(), cancellationToken)
+            Dim modelTask As Task(Of String) = Task.Run(Function() SystemModelQuery.GetModel(), cancellationToken)
+            Dim serialNumberTask As Task(Of String) = Task.Run(Function() SystemSerialNumberQuery.GetSerialNumber(), cancellationToken)
+
+            Await Task.WhenAll(brandTask, modelTask, serialNumberTask).ConfigureAwait(False)
+
+            cancellationToken.ThrowIfCancellationRequested()
 
             Dim serialNumber As String = serialNumberTask.Result
             Dim snid As String = AcerSnidConverter.GenerateSnid(serialNumber)

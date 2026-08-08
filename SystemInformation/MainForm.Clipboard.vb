@@ -92,17 +92,32 @@ Partial Public Class MainForm
             Return
         End If
 
-        Dim builder As New StringBuilder()
+        Dim builder As New StringBuilder(256)
         Dim fields = GetSystemInfoFields()
 
         For Each field In fields
             builder.AppendLine($"{field.Key}: {field.Value.Text}")
         Next
 
-        Dim result As String = builder.ToString().TrimEnd(Environment.NewLine.ToCharArray())
+        Dim result As String = TrimSystemNewline(builder.ToString())
 
         CopyToClipboard(result, AllSystemInfoText)
     End Sub
+
+    ''' <summary>
+    ''' Removes a single trailing system-specific line ending from the specified string if present.
+    ''' </summary>
+    ''' <param name="line">The string to be processed.</param>
+    ''' <returns>
+    ''' The original string with the trailing system line ending removed if present; otherwise, the unchanged string.
+    ''' </returns>
+    Private Shared Function TrimSystemNewline(line As String) As String
+        Dim systemNewLine As String = Environment.NewLine
+        If line.EndsWith(systemNewLine) Then
+            Return line.Substring(0, line.Length - systemNewLine.Length)
+        End If
+        Return line
+    End Function
 
     ''' <summary>
     ''' Handles the Click event for individual system information textboxes to copy their value and display a balloon notification.

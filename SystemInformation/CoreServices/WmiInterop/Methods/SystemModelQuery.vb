@@ -6,6 +6,11 @@
     Friend NotInheritable Class SystemModelQuery
 
         ''' <summary>
+        ''' The default fallback string returned when the system model cannot be retrieved or is empty.
+        ''' </summary>
+        Private Const DefaultFallbackModel As String = "Unknown"
+
+        ''' <summary>
         ''' The WMI query string used to retrieve computer system model information.
         ''' </summary>
         Private Const ComputerSystemQuery As String = "SELECT Model FROM Win32_ComputerSystem"
@@ -35,39 +40,37 @@
         Friend Shared Function GetModel() As String
             Try
                 Using searcher As New ManagementObjectSearcher(ComputerSystemQuery),
-                      collection As ManagementObjectCollection = searcher.Get()
+                    collection As ManagementObjectCollection = searcher.Get()
 
-                    Dim model As String = ExtractModelFromCollection(collection)
-
-                    If model IsNot Nothing Then
-                        Return model.Trim()
-                    End If
+                    Return ExtractModelFromCollection(collection)
                 End Using
 
             Catch ex As Exception
-                DialogService.ShowError($"Failed to retrieve system model from WMI.{Environment.NewLine}{Environment.NewLine}Error: {ex.Message}",
-                                        "WMI Error")
+                Return UnknownModel
             End Try
-
-            Return UnknownModel
         End Function
 
         ''' <summary>
-        ''' Extracts the first valid model name from a collection of WMI computer system management objects.
+        ''' Extracts the system model string from a WMI management object collection, ensuring proper disposal of unmanaged COM objects.
         ''' </summary>
-        ''' <param name="collection">The <see cref="ManagementObjectCollection"/> containing computer system data from WMI.</param>
+        ''' <param name="collection">The <see cref="ManagementObjectCollection"/> returned by the WMI query.</param>
         ''' <returns>
-        ''' The first non-null, non-whitespace model name found in the collection, or <see langword="Nothing"/> if none is found.
+        ''' The trimmed model name if found; otherwise, <see cref="DefaultFallbackModel"/> ("Unknown") 
+        ''' if <paramref name="collection"/> is null, empty, or contains no valid model value.
         ''' </returns>
-        Private Shared Function ExtractModelFromCollection(collection As ManagementObjectCollection) As String
-            Return collection.
-                Cast(Of ManagementObject)().
-                Select(Function(obj)
-                           Using obj
-                               Return obj(ModelProperty)?.ToString()
-                           End Using
-                       End Function).
-                FirstOrDefault(Function(value) Not String.IsNullOrWhiteSpace(value))
+        Public Shared Function ExtractModelFromCollection(collection As ManagementObjectCollection) As String
+            If collection Is Nothing Then Return DefaultFallbackModel
+
+            For Each queryObj As ManagementObject In collection
+                Using queryObj
+                    Dim modelValue = queryObj(ModelProperty)?.ToString()
+                    If Not String.IsNullOrWhiteSpace(modelValue) Then
+                        Return modelValue.Trim()
+                    End If
+                End Using
+            Next
+
+            Return DefaultFallbackModel
         End Function
     End Class
 End Namespace

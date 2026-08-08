@@ -37,19 +37,12 @@
                 Using searcher As New ManagementObjectSearcher(BiosQuery),
                     collection As ManagementObjectCollection = searcher.Get()
 
-                    Dim serialNumber As String = ExtractSerialNumberFromCollection(collection)
-
-                    If serialNumber IsNot Nothing Then
-                        Return serialNumber.Trim()
-                    End If
+                    Return ExtractSerialNumberFromCollection(collection)
                 End Using
 
             Catch ex As Exception
-                DialogService.ShowError($"Failed to retrieve system serial number from WMI.{Environment.NewLine}{Environment.NewLine}Error: {ex.Message}",
-                                        "WMI Error")
+                Return UnknownSerialNumber
             End Try
-
-            Return UnknownSerialNumber
         End Function
 
         ''' <summary>
@@ -57,21 +50,22 @@
         ''' </summary>
         ''' <param name="collection">The <see cref="ManagementObjectCollection"/> containing BIOS data from WMI.</param>
         ''' <returns>
-        ''' The first non-null, non-whitespace serial number found in the collection, or <see langword="Nothing"/> if none is found.
+        ''' The trimmed serial number if found; otherwise, <see cref="UnknownSerialNumber"/> ("Unknown") 
+        ''' if <paramref name="collection"/> is null, empty, or contains no valid serial number.
         ''' </returns>
-        ''' <remarks>
-        ''' This method iterates through the collection using LINQ and properly disposes of each <see cref="ManagementObject"/> 
-        ''' after accessing its properties. It filters out null or whitespace values to ensure only valid serial numbers are returned.
-        ''' </remarks>
         Private Shared Function ExtractSerialNumberFromCollection(collection As ManagementObjectCollection) As String
-            Return collection.
-                Cast(Of ManagementObject)().
-                Select(Function(obj)
-                           Using obj
-                               Return obj(SerialNumberProperty)?.ToString()
-                           End Using
-                       End Function).
-                FirstOrDefault(Function(value) Not String.IsNullOrWhiteSpace(value))
+            If collection Is Nothing Then Return UnknownSerialNumber
+
+            For Each queryObj As ManagementObject In collection
+                Using queryObj
+                    Dim serialValue = queryObj(SerialNumberProperty)?.ToString()
+                    If Not String.IsNullOrWhiteSpace(serialValue) Then
+                        Return serialValue.Trim()
+                    End If
+                End Using
+            Next
+
+            Return UnknownSerialNumber
         End Function
     End Class
 End Namespace

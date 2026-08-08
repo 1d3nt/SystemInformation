@@ -9,22 +9,6 @@
 #Region " Constants "
 
         ''' <summary>
-        ''' Represents the predefined registry key handle for <c>HKEY_LOCAL_MACHINE</c> (HKLM).
-        ''' </summary>
-        ''' <remarks>
-        ''' Corresponds to the winreg.h handle definition <c>0x80000002</c>.
-        ''' </remarks>
-        Private Shared ReadOnly HkeyLocalMachine As New IntPtr(&H80000002)
-
-        ''' <summary>
-        ''' Restricts the retrieved registry value type to <c>REG_SZ</c> (null-terminated string).
-        ''' </summary>
-        ''' <remarks>
-        ''' Used when querying native registry functions to ensure the returned data matches a string type.
-        ''' </remarks>
-        Private Const RrfRtRegSz As UInteger = &H2
-
-        ''' <summary>
         ''' The registry subkey path relative to <c>HKEY_LOCAL_MACHINE</c> containing system BIOS details.
         ''' </summary>
         Private Const BiosRegistryKeyPath As String = "HARDWARE\DESCRIPTION\System\BIOS"
@@ -41,14 +25,6 @@
         ''' 1024 characters is sufficient for typical manufacturer names which rarely exceed 100 characters.
         ''' </remarks>
         Private Const BufferCapacity As Integer = 1024
-
-        ''' <summary>
-        ''' The number of bytes per character in Unicode (UTF-16) encoding.
-        ''' </summary>
-        ''' <remarks>
-        ''' Used to calculate byte size from character count when calling native registry APIs.
-        ''' </remarks>
-        Private Const BytesPerChar As Integer = 2
 
         ''' <summary>
         ''' The fallback value returned when the manufacturer cannot be determined.
@@ -75,14 +51,14 @@
         ''' </remarks>
         Friend Shared Function GetBrand() As String
             Dim buffer As New StringBuilder(BufferCapacity)
-            Dim bufferSize = CType(buffer.Capacity * BytesPerChar, UInteger)
+            Dim bufferSize = CType(buffer.Capacity * NativeMethods.BytesPerChar, UInteger)
             Dim type As UInteger = 0
 
             Dim status As Integer = NativeMethods.RegGetValue(
-                HkeyLocalMachine,
+                NativeMethods.HkeyLocalMachine,
                 BiosRegistryKeyPath,
                 SystemManufacturerValueName,
-                RrfRtRegSz,
+                NativeMethods.RrfRtRegSz,
                 type,
                 buffer,
                 bufferSize)
@@ -90,10 +66,6 @@
             If status = Win32Result.ErrorSuccess Then
                 Return buffer.ToString().Trim()
             End If
-
-            Dim errorMessage As String = New Win32Exception(status).Message
-            DialogService.ShowError($"Failed to retrieve system manufacturer from registry.{Environment.NewLine}{Environment.NewLine}Error: {errorMessage} (Code: {status})",
-                                    "Registry Error")
 
             Return UnknownManufacturer
         End Function

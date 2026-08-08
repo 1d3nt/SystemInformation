@@ -8,7 +8,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <OptionStrict>On</OptionStrict>
     <MyType>WindowsForms</MyType>
-    <ImportedNamespaces>JetBrains.Annotations=False,System.ComponentModel=False,System.Data=False,System.Drawing=False,System.Management=False,System.Runtime.InteropServices=False,System.Text=False,System.Windows.Forms=False,SystemInformation.CoreServices.UI=False,SystemInformation.Utilities.ErrorHandling=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,SystemInformation=True</ImportedNamespaces>
+    <ImportedNamespaces>JetBrains.Annotations=False,System.ComponentModel=False,System.Data=False,System.Drawing=False,System.Management=False,System.Runtime.InteropServices=False,System.Text=False,System.Threading=False,System.Windows.Forms=False,SystemInformation.CoreServices.UI=False,SystemInformation.Utilities.ErrorHandling=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,SystemInformation=True</ImportedNamespaces>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +19,7 @@
     <Import Include="System.Management" />
     <Import Include="System.Runtime.InteropServices" />
     <Import Include="System.Text" />
+    <Import Include="System.Threading" />
     <Import Include="System.Windows.Forms" />
     <Import Include="SystemInformation.CoreServices.UI" />
     <Import Include="SystemInformation.Utilities.ErrorHandling" />

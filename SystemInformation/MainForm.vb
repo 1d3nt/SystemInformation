@@ -26,22 +26,47 @@
 Public Class MainForm
 
     ''' <summary>
-    ''' Retrieves the aggregated system information model and updates the user interface controls.
+    ''' Manages cancellation tokens for asynchronous system information retrieval operations.
+    ''' </summary>
+    Private _cancellationTokenSource As CancellationTokenSource
+
+    ''' <summary>
+    ''' Asynchronously retrieves hardware identifiers and populates the user interface controls.
     ''' </summary>
     Private Async Sub LoadSystemData()
-        Dim info = Await SystemInfoCollector.GetSystemInfoAsync()
+        _cancellationTokenSource?.Cancel()
+        _cancellationTokenSource?.Dispose()
+        _cancellationTokenSource = New CancellationTokenSource()
 
-        BrandTextBox.Text = info.Brand
-        ProductNameTextBox.Text = info.Model
-        SerialNumberTextBox.Text = info.SerialNumber
-        SnidTextBox.Text = info.Snid
+        Try
+            Dim info = Await SystemInfoCollector.GetSystemInfoAsync(_cancellationTokenSource.Token)
+
+            BrandTextBox.Text = info.Brand
+            ProductNameTextBox.Text = info.Model
+            SerialNumberTextBox.Text = info.SerialNumber
+            SnidTextBox.Text = info.Snid
+        Catch ex As OperationCanceledException
+            ' Operation was canceled; suppress UI updates and error dialogs.
+        Catch ex As Exception
+            DialogService.ShowError($"Failed to load system information: {ex.Message}", "Error")
+        End Try
     End Sub
 
     ''' <summary>
     ''' Terminates the application and returns the exit code to the operating system.
     ''' </summary>
     Private Shared Sub TerminateApplication()
-        Environment.Exit(0)
+        Application.Exit()
+    End Sub
+
+    ''' <summary>
+    ''' Handles the form closing event to ensure pending background requests are canceled and resources are cleaned up.
+    ''' </summary>
+    ''' <param name="e">A <see cref="FormClosingEventArgs"/> that contains the event data.</param>
+    Protected Overrides Sub OnFormClosing(e As FormClosingEventArgs)
+        _cancellationTokenSource?.Cancel()
+        _cancellationTokenSource?.Dispose()
+        MyBase.OnFormClosing(e)
     End Sub
 
 #Region " UI Handlers "

@@ -10,6 +10,11 @@ Namespace Utilities
 #Region " Constants "
 
         ''' <summary>
+        ''' The default fallback string returned when SNID calculation fails or the serial number is invalid.
+        ''' </summary>
+        Friend Const DefaultFallbackSnid As String = "Unknown"
+
+        ''' <summary>
         ''' Specifies the minimum required character length for a serial number to be valid for SNID extraction.
         ''' </summary>
         Private Const MinimumSerialLength As Integer = 20
@@ -62,15 +67,16 @@ Namespace Utilities
         End Sub
 
         ''' <summary>
-        ''' Generates an 11-digit SNID (Serial Number ID) from a valid serial number.
+        ''' Calculates the SNID from a hardware serial number.
         ''' </summary>
-        ''' <param name="serialNumber">The hardware serial number containing the embedded SNID segments.</param>
+        ''' <param name="serialNumber">The hardware serial number to process.</param>
         ''' <returns>
-        ''' The calculated 11-digit SNID string, or an empty string if the input is invalid or cannot be parsed.
+        ''' The calculated SNID string if successful; otherwise, returns <see cref="DefaultFallbackSnid"/> ("N/A") 
+        ''' if <paramref name="serialNumber"/> is null, too short, or an exception occurs.
         ''' </returns>
         Friend Shared Function GenerateSnid(serialNumber As String) As String
             If String.IsNullOrWhiteSpace(serialNumber) OrElse serialNumber.Length < MinimumSerialLength Then
-                Return String.Empty
+                Return DefaultFallbackSnid
             End If
 
             Try
@@ -87,7 +93,8 @@ Namespace Utilities
                 Return $"{part1}{formattedDecimal}{part2}{charValue}"
 
             Catch ex As Exception
-                Return String.Empty
+                Debug.WriteLine($"Failed to generate SNID: {ex.Message}")
+                Return DefaultFallbackSnid
             End Try
         End Function
 

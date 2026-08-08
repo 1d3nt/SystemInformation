@@ -1,6 +1,15 @@
 ﻿Namespace Utilities.ErrorHandling
 
-    Friend Class Win32Result
+    ''' <summary>
+    ''' Provides Win32 error code constants and helpers.
+    ''' </summary>
+    Friend NotInheritable Class Win32Result
+
+        ''' <summary>
+        ''' Prevents instantiation of this static utility class.
+        ''' </summary>
+        Private Sub New()
+        End Sub
 
         ''' <summary>
         ''' The operation completed successfully.

@@ -21,6 +21,30 @@ Namespace CoreServices.WindowsApiInterop.Methods
     Friend NotInheritable Class NativeMethods
 
         ''' <summary>
+        ''' Represents the predefined registry key handle for <c>HKEY_LOCAL_MACHINE</c> (HKLM).
+        ''' </summary>
+        ''' <remarks>
+        ''' Corresponds to the winreg.h handle definition <c>0x80000002</c>.
+        ''' </remarks>
+        Friend Shared ReadOnly HkeyLocalMachine As New IntPtr(&H80000002)
+
+        ''' <summary>
+        ''' Restricts the retrieved registry value type to <c>REG_SZ</c> (null-terminated string).
+        ''' </summary>
+        ''' <remarks>
+        ''' Used when querying native registry functions to ensure the returned data matches a string type.
+        ''' </remarks>
+        Friend Const RrfRtRegSz As UInteger = &H2
+
+        ''' <summary>
+        ''' The number of bytes per character in Unicode (UTF-16) encoding.
+        ''' </summary>
+        ''' <remarks>
+        ''' Used to calculate byte size from character count when calling native registry APIs.
+        ''' </remarks>
+        Friend Const BytesPerChar As Integer = 2
+
+        ''' <summary>
         ''' Retrieves the type and data for the specified registry value.
         ''' </summary>
         ''' <param name="hkey">
