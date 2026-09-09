@@ -1,4 +1,4 @@
-<p align="center"><img src="CutOutGemini.png" width="128"></p>
+<p align="center"><img src="SystemInformation/Resources/CutOutGemini2.png" width="128"></p>
 
 # System Information Utility
 
