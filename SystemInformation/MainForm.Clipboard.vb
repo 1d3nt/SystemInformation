@@ -86,7 +86,7 @@ Partial Public Class MainForm
     ''' Handles the Click event for the Copy All Info button.
     ''' </summary>
     ''' <param name="sender">The source of the event.</param>
-    ''' <param name="e">An <see cref="EventArgs"/> containing event data.</param>
+    ''' <param name="e">An <see cref="EventArgs"/> Containing event data.</param>
     Private Sub CopyAllButton_Click(sender As Object, e As EventArgs) Handles CopyAllButton.Click
         If AreAllFieldsEmpty() Then
             Return
