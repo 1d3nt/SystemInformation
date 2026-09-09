@@ -1,5 +1,9 @@
 <p align="center"><img src="SystemInformation/Resources/CutOutGemini2.png" width="128"></p>
 
+![License](https://img.shields.io/github/license/1d3nt/SystemInformation)
+![Issues](https://img.shields.io/github/issues/1d3nt/SystemInformation)
+![Stars](https://img.shields.io/github/stars/1d3nt/SystemInformation)
+
 # System Information Utility
 
 **System Information Utility** is a lightweight **.NET 10.0** Windows application that retrieves and displays essential hardware identifiers—Brand, Product Name, Serial Number, and SNID—in a clean, modern interface.
