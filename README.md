@@ -1,3 +1,5 @@
+<p align="center"><img src="CutOutGemini.png" width="128"></p>
+
 # System Information Utility
 
 **System Information Utility** is a lightweight **.NET 10.0** Windows application that retrieves and displays essential hardware identifiers—Brand, Product Name, Serial Number, and SNID—in a clean, modern interface.
@@ -120,3 +122,5 @@ Contributions, bug reports, and feature requests are welcome! To maintain clean 
    git clone [https://github.com/1d3nt/SystemInformation.git](https://github.com/1d3nt/SystemInformation.git)
    cd SystemInformation
    ```
+
+**Tags:** system-information • system-info • windows • hardware-info • pc-info • vb.net • visual-basic • dotnet • utility
