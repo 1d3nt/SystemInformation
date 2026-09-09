@@ -44,6 +44,13 @@ If you're looking for a replacement for:
 * **Modern Runtime:** Built on .NET 10.0 for fast startup, low memory usage, and compatibility with current Windows releases.
 * **Minimal UI:** Clean, focused interface designed purely for quick system identification.
 
+## Tech Stack
+- .NET 10.0
+- Windows Forms
+- VB.NET
+- WMI (Windows Management Instrumentation)
+- Native Windows APIs (P/Invoke)
+
 ## Key Components
 
 * **Single Responsibility Architecture:** All logic is isolated into dedicated classes—UI, interop, WMI, and utilities remain fully decoupled.
